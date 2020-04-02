@@ -33,12 +33,10 @@
 #include "serial_debug.h"
 #include <stdio.h>
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-#define SYSTEMTICK_PERIOD_MS  10
-#define MESSAGE2   "  STM32F-4 Series   "
-#define MESSAGE3   " TCP echoserver Demo"
-#define MESSAGE4   "                    "
+#define SYSTEMTICK_PERIOD_MS 10
+#define MESSAGE2 "  STM32F-4 Series   "
+#define MESSAGE3 " TCP echoserver Demo"
+#define MESSAGE4 "                    "
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -47,7 +45,6 @@ uint32_t timingdelay;
 
 void LCD_LED_Init(void);
 
-
 int main(void)
 {
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
@@ -55,33 +52,25 @@ int main(void)
   LwIP_Init();
   tcp_echoserver_init();
   while (1)
-  {  
+  {
     if (ETH_CheckFrameReceived())
-    { 
+    {
       LwIP_Pkt_Handle();
     }
     LwIP_Periodic_Handle(LocalTime);
-  } 
+  }
 }
 
 void Delay(uint32_t nCount)
 {
-  /* Capture the current local time */
-  timingdelay = LocalTime + nCount;  
+  timingdelay = LocalTime + nCount;
 
-  /* wait until the desired delay finish */  
-  while(timingdelay > LocalTime)
-  {     
+  while (timingdelay > LocalTime)
+  {
   }
 }
-
 
 void Time_Update(void)
 {
   LocalTime += SYSTEMTICK_PERIOD_MS;
 }
-
-
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
